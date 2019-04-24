@@ -10,7 +10,8 @@ pd.set_option('compute.use_bottleneck', True)
 pd.set_option('compute.use_numexpr', True)
 
 def compute_nearcollision_statistics(
-                PATH,incols = ["date_time_utc","mmsi","lat","lon","sog","cog",
+                PATH,
+                incols = ["date_time_utc","mmsi","lat","lon","sog","cog",
                                 "true_heading","length","nav_status"], 
                 namedict = {"DateTime": "Time_Datetime", 
                             "ID": "ID",
@@ -50,7 +51,7 @@ def compute_nearcollision_statistics(
 
     NB: Still beta.
     """
-
+    print("Reading csv file from PATH")
     AIS_df = pd.io.parsers.read_csv(PATH
                         ,engine="c"
                         ,sep=";"
@@ -58,6 +59,8 @@ def compute_nearcollision_statistics(
                         ,compression=None
                         ,dtype=dtypesforreading,
                         )
+
+    print("csv file read")
 
     # Renaming columns
     AIS_df.rename(columns=colnamer,inplace=True)
@@ -104,12 +107,14 @@ def compute_nearcollision_statistics(
                                             axis=0, inplace=False)
 
     ### Calculating time to CPA and CPA distance ###
-
+    print("Computing time to CPA for all records")
     # Calculating times to CPA and CPA distances for all values in all
     # intervals
     # NB: This is the most computationally heavy operation - see function code
-    AIS_outmatrix = time_to_CPA_calculator(AIS_shorter, extrainterval=False)
-
+    AIS_outmatrix = time_to_CPA_calculator(AIS_shorter, extrainterval=False,
+                                            namedict = namedict)
+    print("All CPAs computed")
+    print("Filtering outtable")
     ### Filtering the data by tCPA and CPA ###
 
     # Making pointer to the output matrix
@@ -149,6 +154,7 @@ def compute_nearcollision_statistics(
                                             ["Min_time_to_CPA"])
 
     ### Building a databank ###
+    print("Table filtered. Creating databank.")
 
     # Renaming pointer
     AIS_filtered = AIS_Unique_Filtered_more
@@ -170,6 +176,7 @@ def compute_nearcollision_statistics(
     # Creating pointer
     AIS_databank = DATABANK
 
+    print("Synchronizing databank")
     # Synchronizing times
     databank_mergetime = observation_synchronizer(AIS_databank)
 
@@ -177,6 +184,8 @@ def compute_nearcollision_statistics(
 
     # Creating pointer
     AIS_db = databank_mergetime
+
+    print("Calculating statistics")
 
     # Calculating stats
     AIS_with_stats = Stat_calculator(AIS_db)
@@ -191,6 +200,8 @@ def compute_nearcollision_statistics(
 
     # Calculating summary statistics
     AIS_summary_stats = statistics_aggregator(AIS_db)
+
+    print("Writing statistics to file.")
 
     # Finally writing output for further analysis
     AIS_summary_stats.to_csv("AIS_summary_stats.csv",index=False,
