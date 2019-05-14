@@ -5,4 +5,6 @@ Function hierarchy for computing summary statistics on near-collision situations
 - Condensed workflow can be modified to be run as a single script
 - NearCollisionStatistics is the module to be called upon
 
-Part of larger project. See paper: Link.
+See also code for exploratory analysis in R in separate folder.
+
+Part of project on computing summary statistics on near-collision situation. See paper: Link.
