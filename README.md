@@ -1,4 +1,4 @@
-# NearCollisionSituations
+# AIS wrangling: Near Collision Situations
 Function hierarchy for computing summary statistics on near-collision situations. Is implemented idiosyncratically, but can be adapted to fit different AIS data, and is somewhat flexible. 
 
 - Workflow sets out usage with checkpoints, to be executed by sending line by line to python kernel
