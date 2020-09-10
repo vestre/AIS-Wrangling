@@ -8,3 +8,5 @@ Function hierarchy for computing summary statistics on near-collision situations
 See also code for exploratory analysis in R in separate folder.
 
 Part of project on computing summary statistics on near-collision situation. See [project paper](https://github.com/vestre/AIS-Wrangling/blob/master/Final_Report.pdf).
+
+Status update August 2020: Project is written to a paper, and submitted. Will post updated code and paper upon acceptance.
