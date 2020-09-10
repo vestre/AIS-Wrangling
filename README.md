@@ -7,4 +7,4 @@ Function hierarchy for computing summary statistics on near-collision situations
 
 See also code for exploratory analysis in R in separate folder.
 
-Part of project on computing summary statistics on near-collision situation. See paper: Link.
+Part of project on computing summary statistics on near-collision situation. See [project paper]().
